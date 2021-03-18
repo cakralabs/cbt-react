@@ -20,7 +20,7 @@ const ori = window.location.origin
 
 export const PostAction = (url,data) =>{
     return new Promise((resolve, reject) => {
-        var URL = restApi+url
+        var URL = restApi+url;        
         axios.post(URL, data)
             .then(res => {
                 //if(msg!==null) message.success(msg);
@@ -107,14 +107,13 @@ export const UpdateProfile = (photo,Name) => {
 export const loginUser = async(data,dispatch,setLoading) => {
   
     dispatch(requestLogin());
-    try{
-      var req = await PostAction('/login',data);
+    try{      
+      var req = await PostAction('/',data);
       if(req && req.status === 200){
         //console.log('hancik')
-        var D = req.data.data
+        var D = req.data.data;        
         if(D.id === 1){
-          axios.defaults.headers.common['users'] = 1
-          axios.defaults.headers.common['centre'] = HQID
+          axios.defaults.headers.common['users'] = 1          
           var c = await Class.getDataForm()
           if(c && c.success){
              D.centre = c.data.centre

@@ -34,7 +34,7 @@ const Login = (props) =>{
     },[])
 
     return(       
-        <div>
+        <div className="login">
             <header className="masthead">
                 <div className="container-fluid">
                     <div className="row no-gutters">
@@ -54,7 +54,7 @@ const Login = (props) =>{
                                     <p>Silahkan login dengan username dan password yang telah anda miliki.</p>
                                     <ConfigProvider form={{validateMessages}}>
                                         <Form layout="vertical" onFinish={onFinish}>
-                                            <Item label="Email Address" validateTrigger="onBlur" name="email" rules={[{required: true,type:'email'}]}>
+                                            <Item label="Username" validateTrigger="onBlur" name="username" rules={[{required: true}]}>
                                                 <Input autoComplete="off" />
                                             </Item>
                                             <Item label="Password" name="password" rules={[{required: true}]}>
