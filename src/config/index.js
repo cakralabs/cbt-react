@@ -8,5 +8,4 @@ export const validateMessages = {
     required: "${label} is required",    
     
 }
-export const HQID = 0
 export const dateFormat = 'D MMM YYYY'

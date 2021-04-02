@@ -1,6 +1,6 @@
 import { message } from "antd";
 import axios from "axios";
-import { HQID, restApi } from "../config";
+import { restApi } from "../config";
 import { Class } from "./CRUD";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -111,18 +111,18 @@ export const loginUser = async(data,dispatch,setLoading) => {
       var req = await PostAction('/',data);
       if(req && req.status === 200){
         //console.log('hancik')
-        var D = req.data.data;        
+        var D = req.data.data;
         if(D.id === 1){
           axios.defaults.headers.common['users'] = 1          
           var c = await Class.getDataForm()
           if(c && c.success){
-             D.centre = c.data.centre
+             D.centre = 1
              //dispatch(receiveLogin(D))
              D.centre.unshift({id:0,name:'Headquarter'})
           }
         }
-        D.email = data.email
-        D.password = data.password
+        D.username = data.username
+        D.password = data.raw_password
         dispatch(receiveLogin(D))
         
         
@@ -148,17 +148,16 @@ export const logoutUser = () => dispatch => {
 };
 
 export const Verifing = async(st,dispatch) => {
-  var stateData = st.auth;
+  var stateData = st.auth;  
   if(stateData.isAuthenticated){
-    var data = {email:stateData.user.email,password:stateData.user.password}
+    var data = {username:stateData.user.username,password:stateData.user.raw_password}
     try{
-      var req = await PostAction('/login',data);
+      var req = await PostAction('/',data);
       if(req && req.status === 200){
         //console.log('hancik')
         var D = req.data.data
         if(D.id === 1){
-          axios.defaults.headers.common['users'] = 1
-          axios.defaults.headers.common['centre'] = HQID
+          axios.defaults.headers.common['users'] = 1          
           var c = await Class.getDataForm()
           if(c && c.success){
              D.centre = c.data.centre
@@ -166,8 +165,8 @@ export const Verifing = async(st,dispatch) => {
              D.centre.unshift({id:0,name:'Headquarter'})
           }
         }
-        D.email = data.email
-        D.password = data.password
+        D.username = data.username
+        D.password = data.raw_password
         dispatch(receiveLogin(D))
       }
     }catch(e){

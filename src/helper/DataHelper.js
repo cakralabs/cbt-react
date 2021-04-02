@@ -86,24 +86,12 @@ export const SortByAlpabet = (a,b,index) => a[index].localeCompare(b[index])
 export const SortByNumber = (a,b,index) => a[index] - b[index]
 export const SortByDate = (a,b,index) =>  moment(a[index]).unix() - moment(b[index]).unix()
 
-export const useCentre = () =>{
-
-    const user = useSelector(s => s.auth.user),
-    centre = user.centre.sort((a,b) => b.status - a.status ),
-    selectedCentre = useSelector(s => s.auth.centre)
-    return {
-        list: centre,
-        selected : centre[selectedCentre]
-    }
-}
-
 export const useUserlogedin = () => {
-    const user = useSelector(s => s.auth.user),
-    selectedCentre = useSelector(s => s.auth.centre)
+    const user = useSelector(s => s.auth.user)
     return {
         isAO: user.id === 1,
         id: user.id,
-        role: user.id === 1 ? "AO" : user.centre[selectedCentre].role
+        role: user.id === "AO"
     }
 }
 
